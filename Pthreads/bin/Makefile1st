@@ -1,0 +1,2 @@
+pthread_sum: pthread_sumarr.c
+	gcc -g -pthread pthread_sumarr.c -o pthread_sum
