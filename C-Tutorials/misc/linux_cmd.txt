@@ -1,0 +1,25 @@
+1. strace ./my_bin_file  
+2. mmep, brk : memory alloc in linux system
+        brk :  moving mem point of break for the heap to the next 4k page.
+        mmap : request extra memory from kernel. 
+        example:
+        uint8_t *ptr = mmap((void *)0xADDR | NULL, PAGESIZE, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOS, -1 ,0) 
+
+3. strcpy vs memcpy
+        strcpy : cpy string until it hits char '0' 
+        strncpy : cpy string with maximum b chars to cpy
+        memcpy : cpy block of mem from src to dest 
+
+4. valgrind : linux prog to analize heap memory
+        example:
+        > valgrind ls
+
+5. memset(ptr, val, size) :  set memory ptr of nkown size with some value 
+        example:
+        #define ONEGIG 1<<30;
+        int *p = (int *)malloc(ONEGIG);
+        memset(p, 1, ONEGIG);
+
+6. ps ux : linux cmd gives info on running proccesses
+
+7. int getrusage(int who, struct rusage *r_usage) <sys/resource.h> : get resource usage

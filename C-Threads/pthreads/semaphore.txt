@@ -1,0 +1,9 @@
+    Sync primitivies (also mutex, cond var, monitors & barriers)
+
+    unsigned int with wait(),post() ATOMIC operations
+    wait() decrement semaphore if > 0 else wait
+    post() increment semaphore
+
+    semaphore don't take ownership like mutex so in semaphore, 
+    different processes/threads can wait and post to a semaphore,
+    in mutex the one who locks is the one whoe releses (ownership) 
