@@ -1,5 +1,5 @@
 
-CC=clang
+CC=gcc
 CFLAGS=-g -Wall -std=c11
 BINS = rand_alloc
 
@@ -15,3 +15,4 @@ all: $(BINS)
 clean:
 	rm -rf *.o $(BINS)
 	
+# ./rand_alloc 2> mem_allocs.log

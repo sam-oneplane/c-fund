@@ -17,7 +17,7 @@ bool destroy_mem_block(char *filename);
 #define FILENAME "wrshmem.c"
 #define IPC_RESULT_ERR -1
 
-#define SEM_PROD_FNAME "/myproducer" 
-#define SEM_CONS_FNAME "/myconsumer"
+#define SEM_PROD_FNAME "myproducer" 
+#define SEM_CONS_FNAME "myconsumer"
 
 #endif

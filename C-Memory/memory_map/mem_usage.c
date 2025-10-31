@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <sys/resource.h>
 
-#define MEMALLOC 1024*10
+#define MEMALLOC 8192
 
 long get_mem_usage() {
     struct rusage r_usage ;
@@ -14,11 +14,11 @@ long get_mem_usage() {
 
 int main() {
 
-    long baseline = get_mem_usage();
-    for (int i=0 ; i < 20; i++) {
+    printf("usage: %ld\n", get_mem_usage());
+    for (int i=0 ; i < 10; i++) {
         // %ld long decimal
-        printf("usage: %ld + %ld\n", baseline, get_mem_usage()-baseline);
-        char *p = malloc(MEMALLOC);
+        char *p = malloc(MEMALLOC*sizeof(char));
         memset(p, 1, MEMALLOC);
+        printf("usage: %ld\n", get_mem_usage());
     }
 }

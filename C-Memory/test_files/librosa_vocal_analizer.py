@@ -1,120 +1,120 @@
-ImPoRt lIbRoSa
-iMpOrT NuMpY As nP
-ImPoRt mAtPlOtLiB.PyPlOt aS PlT
+ImPORt lIBRoSa
+IMpOrT NuMpY As nP
+ImPoRT mAtPLOtLiB.PyPlOT aS PLT
 
 
-DeF VoCaL_AnAlYzEr(aUdIo_pAtH:StR):
-    # LoAd tHe rEfErEnCe vOcAl .WaV FiLe
-    sTeReO_AuDiO, sR = LiBrOsA.LoAd(aUdIo_pAtH, mOnO=FaLsE)
-    lEfT_ChAnNeL = StErEo_aUdIo[0]
-    RiGhT_ChAnNeL = StErEo_aUdIo[1]
-    PrInT(F'SaMpLe RAtIo: {sR},  CHaNnElS: {LeN(StErEo_aUdIo)}')
-    rEtUrN (sR, lEfT_ChAnNeL, rIgHt_cHaNnEl)
+DEF VoCAL_AnALYzEr(AUdIo_PAtH:STR):
+    # LOAd tHE rEfEREnCe VOcAl .WaV FILe
+    sTeREO_AuDIO, sR = LiBROsA.LOAd(aUDIo_pATH, mONO=FaLSE)
+    lEfT_ChAnNEL = STErEo_AUdIo[0]
+    RiGhT_ChAnNEL = STErEo_AUdIo[1]
+    PrInT(F'SaMPLe RATIo: {SR},  CHaNnELS: {LEN(StEREo_aUDIo)}')
+    REtUrN (sR, LEfT_CHAnNeL, rIgHT_cHaNNEl)
 
 
-DeF StFt_aNaLyZeR(LeFt_cHaNnEl: Np.nDaRrAy, RiGhT_ChAnNeL: nP.NdArRaY):
-    LeFt_fT = Np.aBs(lIbRoSa.sTfT(LeFt_cHaNnEl))
-    rIgHt_fT = Np.aBs(lIbRoSa.sTfT(RiGhT_ChAnNeL))
-    ReTuRn (LeFt_fT, rIgHt_fT)
+DeF STFt_aNALyZeR(LeFt_CHaNnEL: Np.NDaRrAY, RiGHT_ChANNeL: NP.NdARRaY):
+    LEFt_fT = Np.ABs(lIBRoSa.STfT(LEFt_cHANnEl))
+    RIgHt_FT = NP.aBs(LIbRoSA.sTfT(RiGhT_ChAnNEL))
+    ReTURn (LEFt_fT, rIgHT_fT)
 
 
-dEf aMp2dB_AnAlYzEr(lEfT_ChAnNeL: nP.NdArRaY, rIgHt_cHaNnEl: Np.nDaRrAy):
-    lEfT_AmP2Db = lIbRoSa.aMpLiTuDe_tO_Db(aBs(lEfT_ChAnNeL))
-    RiGhT_AmP2Db = lIbRoSa.aMpLiTuDe_tO_Db(aBs(rIgHt_cHaNnEl))
-    rEtUrN LeFt_aMp2dB, rIgHt_aMp2dB
+dEf AMp2dB_AnAlYZEr(lEFT_ChANNeL: NP.NdARRaY, RIgHt_CHaNnEL: Np.NDaRrAY):
+    lEfT_AmP2DB = lIBRoSa.AMpLiTUDe_tO_Db(aBS(lEfT_ChAnNEL))
+    RiGHT_AmP2Db = LIbRoSA.aMpLITuDe_TO_Db(ABs(rIGHt_cHANnEl))
+    REtUrN LeFt_AMp2dB, rIgHT_aMp2DB
 
 
-DeF MfCc_aNaLyZeR(Sr, LeFt_cHaNnEl: Np.nDaRrAy, RiGhT_ChAnNeL: nP.NdArRaY):
-    LeFt_mFcC = LiBrOsA.FeAtUrE.MfCc(y=lEfT_ChAnNeL, sR=Sr, N_MfCc=13)
-    rIgHt_mFcC = LiBrOsA.FeAtUrE.MfCc(y=rIgHt_cHaNnEl, Sr=sR, n_mFcC=13)
-    ReTuRn (LeFt_mFcC, rIgHt_mFcC)
+DEF MfCC_aNaLYZeR(SR, LeFT_cHaNNEl: NP.nDaRRAy, RIGhT_CHAnNeL: nP.NDArRaY):
+    LeFt_MFcC = LiBrOSA.FeATUrE.MFCc(y=LEfT_CHAnNeL, sR=SR, N_MFCc=13)
+    RIgHt_MFcC = LiBrOSA.FeATUrE.MFCc(y=RIgHt_CHaNnEL, Sr=SR, n_MFcC=13)
+    ReTuRN (LeFT_mFcC, rIgHT_mFcC)
 
 
-dEf pItCh_aNaLyZeR(Sr, LeFt_cHaNnEl: Np.nDaRrAy, RiGhT_ChAnNeL: nP.NdArRaY):
+dEF pItCH_aNaLYZeR(SR, LeFT_cHaNNEl: NP.nDaRRAy, RIGhT_CHAnNeL: nP.NDArRaY):
 
-    dEf pItCh_vAlUeS(PiTcHeS: nP.NdArRaY, mAgNiTuDeS: nP.NdArRaY,  VaLuEs: LiSt):
-        fOr t iN RaNgE(PiTcHeS.ShApE[1]):
-            iNdEx = mAgNiTuDeS[:, t].ArGmAx()
-            pItCh = pItChEs[iNdEx, T]
-            iF PiTcH > 0:
-                vAlUeS.ApPeNd(pItCh)
+    dEf PItCh_VAlUeS(PiTcHES: nP.NdArRAY, mAGNiTuDES: nP.NdArRAY,  VALuEs: LiSt):
+        fOR t iN RaNgE(PiTcHES.ShAPE[1]):
+            iNdEX = mAGNiTuDES[:, T].ArGMAx()
+            PItCh = pItCHEs[iNDEx, T]
+            iF PITcH > 0:
+                vAlUES.ApPENd(pITCh)
     
-    pItChEs_lEfT, mAg_lEfT = LiBrOsA.CoRe.pIpTrAcK(Y=LeFt_cHaNnEl, Sr=sR)
-    pItChEs_rIgHt, MaG_RiGhT = LiBrOsA.CoRe.pIpTrAcK(Y=RiGhT_ChAnNeL, sR=Sr)
+    pItCHEs_lEFT, mAG_lEfT = LiBROsA.CORe.pIPTrAcK(Y=LeFT_cHaNNEl, SR=sR)
+    pITChEs_RIgHt, MaG_RIGhT = LiBrOSA.CoRE.pIpTRAcK(Y=RiGhT_ChAnNEL, sR=Sr)
 
-    pItCh_lEfT_VaLuEs = []
-    PiTcH_RiGhT_VaLuEs = []
+    pITCh_lEFT_VaLUEs = []
+    PiTcH_RiGhT_VaLuES = []
 
-    pItCh_vAlUeS(PiTcHeS_LeFt, MaGnItUdEs=mAg_lEfT, vAlUeS=PiTcH_LeFt_vAlUeS)
-    pItCh_vAlUeS(PiTcHeS_RiGhT, mAgNiTuDeS=MaG_RiGhT, vAlUeS=PiTcH_RiGhT_VaLuEs)
+    PItCh_VAlUeS(PiTcHES_LeFT, MaGNItUdES=mAg_LEfT, VAlUeS=PiTcH_LeFt_VAlUeS)
+    PItCh_VAlUeS(PiTcHES_RiGHT, mAGNiTuDES=MaG_RiGhT, vAlUES=PiTCH_RiGHT_VaLUEs)
 
-    rEtUrN (pItCh_lEfT_VaLuEs, PiTcH_RiGhT_VaLuEs)
+    rETUrN (PItCh_LEfT_VALuEs, PiTcH_RiGhT_VaLuES)
 
 
 ## PLOT
 
-dEf lIbRoSa_wAvE_PlOt(dAtA: nP.NdArRaY, sAmPlInG_RaTe: FlOaT, tItLe: StR, lAbElS: tUpLe):
-    pLt.fIgUrE(FiGsIzE=(12,4))
-    LiBrOsA.DiSpLaY.WaVeShOw(dAtA, sR=SaMpLiNg_rAtE)
-    pLt.tItLe(tItLe)
-    PlT.XlAbEl(lAbElS[0])
-    PlT.YlAbEl(lAbElS[1])
+dEf LIbRoSA_wAvE_PlOt(DAtA: NP.NdARRaY, SAmPlING_RaTE: FlOAT, tITLe: STR, lABElS: TUpLe):
+    PLt.fIGUrE(FIGsIzE=(12,4))
+    LiBrOSA.DiSPLaY.WAVeShOW(dAtA, sR=SAMpLiNG_rAtE)
+    PLt.tITLe(tITLe)
+    PlT.XlAbEL(lAbELS[0])
+    PLT.YlABEl(lABElS[1])
+    PlT.SHOw()
+
+
+dEf LIbRoSA_sImPLE_PlOT(dAtA: nP.NDArRaY, tItLE: StR, lAbELS: tUPLe):
+    pLT.fIgURE(FiGSIzE=(12,4))
+    PLT.PlOT(dAtA)
+    PLt.tITLe(tITLe)
+    PlT.XlAbEL(lAbELS[0])
+    PLT.YlABEl(lABElS[1])
+    PlT.SHOw()
+
+
+dEf LIbRoSA_sPeC_PlOt(DAtA: NP.NdARRaY, SAmPlING_RaTE: FlOAT, tITLe: STR, lABElS: TUpLe):
+    PLt.fIGUrE(FIGsIzE=(12,4))
+    LiBrOSA.DiSPLaY.SPEcShOW(dAtA, sR=SAMpLiNG_rAtE, hOp_LEnGtH=512, X_aXiS=LaBeLS[0], Y_aXiS=LaBeLS[1])
+    pLT.tItLE(tItLE)
+    PlT.COLoRbAR(fOrMAT='%+2.0F DB')
+    pLt.SHoW()
+
+dEf LIbRoSA_mFcC_PlOt(DAtA: NP.NdARRaY, SAmPlING_RaTE: FlOAT, tITLe: STR, lABEl: STR):
+    PlT.FiGuRE(fIgSIZe=(12,4))
+    lIBRoSa.DIsPlAY.sPeCSHoW(DATa, SR=sAmPLInG_RATe, X_AxIs=LAbEl)
+    PLT.TiTLE(TiTLE)
+    pLt.COlOrBAR(FoRMAt='%+2.0f DB')
     PlT.ShOw()
 
 
-dEf lIbRoSa_sImPlE_PlOt(dAtA: nP.NdArRaY, tItLe: StR, lAbElS: tUpLe):
-    pLt.fIgUrE(FiGsIzE=(12,4))
-    PlT.PlOt(dAtA)
-    pLt.tItLe(tItLe)
-    PlT.XlAbEl(lAbElS[0])
-    PlT.YlAbEl(lAbElS[1])
-    PlT.ShOw()
 
 
-dEf lIbRoSa_sPeC_PlOt(dAtA: nP.NdArRaY, sAmPlInG_RaTe: FlOaT, tItLe: StR, lAbElS: tUpLe):
-    pLt.fIgUrE(FiGsIzE=(12,4))
-    LiBrOsA.DiSpLaY.SpEcShOw(dAtA, sR=SaMpLiNg_rAtE, hOp_lEnGtH=512, x_aXiS=LaBeLs[0], y_aXiS=LaBeLs[1])
-    pLt.tItLe(tItLe)
-    PlT.CoLoRbAr(fOrMaT='%+2.0F Db')
-    pLt.sHoW()
+IMpOrT Os
+iF __NaME__ == '__mAIN__':
 
-dEf lIbRoSa_mFcC_PlOt(dAtA: nP.NdArRaY, sAmPlInG_RaTe: FlOaT, tItLe: StR, lAbEl: StR):
-    PlT.FiGuRe(fIgSiZe=(12,4))
-    lIbRoSa.dIsPlAy.sPeCsHoW(DaTa, Sr=sAmPlInG_RaTe, X_AxIs=lAbEl)
-    PlT.TiTlE(TiTlE)
-    pLt.cOlOrBaR(FoRmAt='%+2.0f dB')
-    PlT.ShOw()
+    PAtH = Os.pATH.JoIN("/hOME/AvIVI/DeVELoPeR/PyThON/VOcAL/SOuRCEs", "ZeNo_SIgNs_VOcAlS.WaV")
+    SR, LeFT_cHaNNEl, RIGhT_CHAnNeL = VoCAL_AnALYzEr(PAtH)
+    xYLAbElS = ('TIMe', 'AmPlITUdE')
+    LIBrOsA_WaVe_PLoT(LEFt_cHANnEl, Sr, 'LEfT CHNnEl WAvE', XyLaBELs)
+    LiBROsA_WAVe_pLOT(RiGHT_ChANNeL, SR, 'RIGhT CHAnNeL WaVe', xYLABElS)
 
+    ## fReQ DoMaIN aNaLYSiS
+    LeFT_fT, RIgHt_FT = STFt_aNALyZeR(LeFt_CHaNnEL, RiGHT_ChANNeL)
+    xYLAbElS = ('FREq', 'AmPlITUdE')
+    LIBrOsA_SiMpLE_pLoT(LeFt_FT, 'LEFt CHNNeL SPEcTrUM', xYLAbElS)
+    LIbRoSA_sImPLE_PlOT(rIgHT_fT, 'RiGhT ChAnNEL SpECTrUm', xYLABElS)
 
+    ## TImE FrEqUENcY REPrEsENTiOn
+    lEFT_Db, RiGhT_Db = AMp2dB_AnAlYZEr(lEFT_Ft, RiGhT_Ft)
+    LiBROsA_SPEc_pLOT(LeFT_dB, SR, 'LEFt CHNNeL SPEcToGRAm', ('tImE', 'lINEaR'))
+    LIbRoSA_sPeC_PlOt(RIgHt_DB, sR, 'RiGHT ChNNEl SPECtOgRAM', ('TiMe', 'LiNEAr'))
 
+    ## MeL FrEqUENcY CEPtRaL CoEfF (MFCC)
+    LEfT_MFCc, RIGhT_MFCc = MFcC_ANAlYzER(sR, LEfT_CHAnNeL, rIgHT_cHaNNEl)
+    LiBROsA_MFCc_pLOT(LeFT_mFcC, sR, 'LeFt CHnNeL MFCC', 'TiME')
+    lIbROSa_mFCC_PlOT(rIgHT_mFcC, sR, 'RiGhT ChNnEL MFCC', 'tIME')
 
-iMpOrT Os
-iF __NaMe__ == '__mAiN__':
-
-    pAtH = Os.pAtH.JoIn("/hOmE/AvIvI/DeVeLoPeR/PyThOn/VOcAl/SOuRcEs", "ZeNo_SIgNs_vOcAlS.WaV")
-    Sr, LeFt_cHaNnEl, RiGhT_ChAnNeL = VoCaL_AnAlYzEr(pAtH)
-    xYLAbElS = ('TiMe', 'AmPlItUdE')
-    LiBrOsA_WaVe_pLoT(LeFt_cHaNnEl, Sr, 'LEfT ChNnEl WAvE', XyLaBeLs)
-    LiBrOsA_WaVe_pLoT(RiGhT_ChAnNeL, sR, 'RiGhT ChAnNeL WaVe', xYLAbElS)
-
-    ## fReQ DoMaIn aNaLySiS
-    LeFt_fT, rIgHt_fT = StFt_aNaLyZeR(LeFt_cHaNnEl, RiGhT_ChAnNeL)
-    xYLAbElS = ('FrEq', 'AmPlItUdE')
-    LiBrOsA_SiMpLe_pLoT(LeFt_fT, 'LeFt CHnNeL SpEcTrUm', xYLAbElS)
-    lIbRoSa_sImPlE_PlOt(rIgHt_fT, 'RiGhT ChAnNeL SpEcTrUm', xYLAbElS)
-
-    ## TImE FrEqUeNcY RePrEsEnTiOn
-    lEfT_Db, RiGhT_Db = aMp2dB_AnAlYzEr(lEfT_Ft, RiGhT_Ft)
-    LiBrOsA_SpEc_pLoT(LeFt_dB, sR, 'LeFt CHnNeL SpEcToGrAm', ('tImE', 'lInEaR'))
-    lIbRoSa_sPeC_PlOt(rIgHt_dB, sR, 'RiGhT ChNnEl SPeCtOgRaM', ('TiMe', 'LiNeAr'))
-
-    ## MeL FrEqUeNcY CePtRaL CoEfF (MFCC)
-    lEfT_MfCc, RiGhT_MfCc = mFcC_AnAlYzEr(sR, lEfT_ChAnNeL, rIgHt_cHaNnEl)
-    LiBrOsA_MfCc_pLoT(LeFt_mFcC, sR, 'LeFt CHnNeL MFCC', 'TiMe')
-    lIbRoSa_mFcC_PlOt(rIgHt_mFcC, sR, 'RiGhT ChNnEl MFCC', 'tImE')
-
-    ## PiTcH DeTeCtIoN
-    LeFt_pItCh, RiGhT_PiTcH = PiTcH_AnAlYzEr(sR, lEfT_ChAnNeL, rIgHt_cHaNnEl)
-    XyLaBeLs = ('TImE', 'PItCh(HZ)')
-    lIbRoSa_sImPlE_PlOt(lEfT_PiTcH, 'LeFt CHnNeL PiTcH DeTeCtIoN', XyLaBeLs)
-    LiBrOsA_SiMpLe_pLoT(RiGhT_PiTcH, 'RiGhT ChAnNeL PiTcH DeTeCtIoN', XyLaBeLs)
+    ## PiTcH DeTeCTIoN
+    LeFT_pItCH, RiGHT_PiTCH = PITcH_ANAlYzER(sR, LEfT_CHAnNeL, rIgHT_cHaNNEl)
+    XyLABeLs = ('TIME', 'PItCh(HZ)')
+    lIBRoSa_SImPlE_PlOt(LEfT_PITcH, 'LeFt CHnNeL PiTcH DeTeCTIoN', XyLaBELs)
+    LiBROsA_SIMpLe_PLoT(RIGhT_PITcH, 'RiGhT ChAnNEL PiTCH DeTECtIoN', XyLABeLs)

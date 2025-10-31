@@ -3,10 +3,10 @@
 #include <sys/types.h>
 #include <sys/shm.h>
 
-
+// private function
 static int get_shared_block(char *filename, int size) {
     key_t key;
-    key = ftok(filename, 0);
+    key = ftok(filename, 0); // generate unique key (key_t) path combined with id number
 
     if(key == IPC_RESULT_ERR)
         return IPC_RESULT_ERR;

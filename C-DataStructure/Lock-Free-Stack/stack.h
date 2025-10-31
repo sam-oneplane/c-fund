@@ -3,56 +3,58 @@
 #include<stdlib.h>
 #include<stdint.h>
 
-//the node type in the stack
+
+//queue of data elements in the node 
 typedef struct _Node {
     __uint128_t data;
     struct _Node* next;
 } Node;
 
-//the stack
+//the stack queue of nodes 
 typedef struct _lfstack_t {
-    __uint128_t tag;
+    __uint128_t tag; // define the depth of the Nodes in lfstack
     Node *head;
 } lfstack_t;
  
 //the push function
-void lfstack_push(_Atomic lfstack_t *lfstack, __uint128_t value) {
-    lfstack_t next;
-    lfstack_t orig = atomic_load(lfstack);  
+void lfstack_push(_Atomic lfstack_t *lfstack, _Atomic __uint128_t *dat) {
+    lfstack_t sttmp;
+    lfstack_t storig = atomic_load(lfstack);  
     /*here we need a local copy of lfstack, however, lfstack is a pointer
     we could not get the content from a struct pointer atomically by assignmen
-    C11 provides us a function to atomically get the content from the location that 
+    C11 provides us atomic_load to atomically get the content from the location that 
     A atomic type pointer points to. */ 
 
     // Step 1 : create new node and set value
     Node *node = malloc(sizeof(Node));
-    node->data = value;
+    node->data = atomic_fetch_add(dat, 1);
     do{
         // Step.2 set node to be the 1st node, and set local.head node = new node  
-        node->next = orig.head; 
-        next.head = node; 
-        next.tag = orig.tag + 1;
-    }while(!atomic_compare_exchange_weak(lfstack, &orig, next)); 
+        node->next = storig.head; 
+        sttmp.head = node; 
+        sttmp.tag = storig.tag + 1;
+    }while(!atomic_compare_exchange_weak(lfstack, &storig, sttmp));
+    printf("pushing to tag %lld, value %llx\n",(unsigned long long)sttmp.tag , (unsigned long long)sttmp.head->data);
     // if the lfstack is not changed by others, apply the local change of head to it
-    // else  orig = atomic_load(lfstack);
+    // else  storig = atomic_load(lfstack);
 }
 
  //pop function
 int lfstack_pop(_Atomic lfstack_t *lfstack) {
 
-    lfstack_t next;
-    lfstack_t orig = atomic_load(lfstack);
+    lfstack_t sttmp;
+    lfstack_t storig = atomic_load(lfstack);
     do{
-        if(orig.head == NULL) { //return when the stack is empty 
+        if(storig.head == NULL) { //return when the stack is empty 
             return -1;
         }
-        next.head = orig.head->next; //set the head to the next node
-        next.tag = orig.tag + 1;
-    } while(!atomic_compare_exchange_weak(lfstack, &orig, next)); 
+        sttmp.head = storig.head->next; //set the head to the next node
+        sttmp.tag = storig.tag + 1;
+    } while(!atomic_compare_exchange_weak(lfstack, &storig, sttmp)); 
     //if the head of stack is not changed, update the stack
 
-    printf("poping value %llx\n",(unsigned long long)orig.head->data); //just want to see the poping value.
-    free(orig.head); // free the poping node
+    printf("poping {tag,value}, %lld, %llx\n",(unsigned long long)sttmp.tag, (unsigned long long)storig.head->data); //just want to see the poping value.
+    storig.head = NULL; 
 
     return 0;
 }

@@ -2,7 +2,7 @@
 
 CC=clang
 CFLAGS=-g -Wall -std=c11
-OBJS=shared_mem.o 
+OBJS=shared/shared_mem.o 
 EXE=wrshmem.elf rdshmem.elf destroy_blk.elf
 
 all: $(EXE)
