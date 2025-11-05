@@ -8,7 +8,7 @@ s = TCPSocket.new 'localhost', 8189
 s.write("/tmp/testfiles/#{ARGV[0]}.c\n")
 
 s.each_line do |line|
-  # puts line
+  #puts line
 end
 
 s.close

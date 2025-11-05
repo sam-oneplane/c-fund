@@ -1,25 +1,26 @@
-// clang tcpserver.c common.c queue_t.c -o tcps -I. -Wall -std=c11
+// clang tcpserver.c common.c queue_t.c -o tcps -pthread -I. -Wall -std=c11
 #define _GNU_SOURCE
 #include "common.h"
 #include "queue_t.h"
-#include <pthread.h>
+#include <threads.h>
 
 
 void *handle_conn(void *p_client_socket);
-void *pthread_func(void *arg);
+int thread_func(void *arg);
 
-pthread_t thread_pool[THREAD_POOL_SIZE];
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-pthread_cond_t cond_var = PTHREAD_COND_INITIALIZER;
+thrd_t thread_pool[THREAD_POOL_SIZE];
+mtx_t mutex;
+cnd_t cond_var;
 
 int main(int argc, char **argv) {
-
+    mtx_init(&mutex, mtx_plain);
+    cnd_init(&cond_var);
     int server_socket, client_socket, addr_size;
     struct sockaddr_in servaddr, clientaddr;
     
     // create thread pool
     for(int i=0; i<THREAD_POOL_SIZE; i++) {
-        pthread_create(&thread_pool[i], NULL, pthread_func, NULL);
+        thrd_create(&thread_pool[i], thread_func, NULL);
     }
 
     check((server_socket = socket(AF_INET, SOCK_STREAM, 0)), "socket error");
@@ -35,7 +36,7 @@ int main(int argc, char **argv) {
 
     check((listen(server_socket, SERVER_BACKLOG) ), "listen error");
 
-    
+    // Start enqueue client requests
     for( ; ; ) {
         
         printf("wating dor connection in port %d\n", SERVER_PORT);
@@ -51,31 +52,29 @@ int main(int argc, char **argv) {
         
         int *pclient = malloc(sizeof(int));
         *pclient = client_socket;
-        pthread_mutex_lock(&mutex);
+        mtx_lock(&mutex);
         enqueue(pclient);
-        pthread_cond_signal(&cond_var);
-        pthread_mutex_unlock(&mutex);
-        
-
-
+        cnd_signal(&cond_var);
+        mtx_unlock(&mutex);
     } // for loop
 }
 
-void *pthread_func(void *arg) {
+int thread_func(void *arg) {
 
     for( ; ; )  {
         int *pclient;
-        pthread_mutex_lock(&mutex);
+        mtx_lock(&mutex); 
         if((pclient = dequque()) == NULL) {
             /* when the thread is waiting for the condition variable signal 
             it is realising the mutex lock so other threads can access the queue 
             and lock it themselves */
-            pthread_cond_wait(&cond_var, &mutex);
+            cnd_wait(&cond_var, &mutex);
             pclient = dequque();
         }
-        pthread_mutex_unlock(&mutex);
+        mtx_unlock(&mutex);
         handle_conn(pclient);
     }
+    return 0;
 }
 
 void *handle_conn(void *p_client_socket) {
@@ -121,12 +120,12 @@ void *handle_conn(void *p_client_socket) {
 
     // else read buffer
     while((bytesrd = fread(buffer, 1, MAX_LINE, fp)) > 0) {
-        printf("sending %zu bytes\n", bytesrd);
+        printf("sending %zu bytes from thread %p\n", bytesrd, (void *)thrd_current());
         write(client_socket, buffer, bytesrd); // write buffer to client_socket fd
     }
 
     close(client_socket);
     fclose(fp);
-    printf("closing server connection");
+    printf("closing server connection\n");
     return NULL;
 }

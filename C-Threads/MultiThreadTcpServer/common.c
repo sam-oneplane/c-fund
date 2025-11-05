@@ -6,20 +6,18 @@ void err_n_die(const char *fmt, ...) {
     va_list ap;
 
     errno_save = errno;
-    // Initialize va_list to point to the first variable argument
-    // 'fmt' is the last fixed argument before the ellipsis
+
     va_start(ap, fmt);
     vfprintf(stdout, fmt, ap);
     fprintf(stdout, "\n");
     fflush(stdout);
-    // Retrieve the next argument, assuming it's an int
-    // va_arg(args, int);
+
     if(errno_save != 0) {
         fprintf(stdout, "(errno=%d): %s\n", errno_save, strerror(errno_save));
         fprintf(stdout, "\n");
         fflush(stdout);
     }
-    // Clean up the va_list
+
     va_end(ap);
     exit(1);
 }
