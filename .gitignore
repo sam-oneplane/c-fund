@@ -1,0 +1,39 @@
+# Compiled object files
+*.o
+*.obj
+
+# Executables
+*.exe
+*.out
+a.out
+
+# Libraries
+*.lib
+*.a
+*.so
+*.dll
+
+# Debugging information
+*.dSYM/
+*.pdb
+
+# Temporary files
+*~
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# Build directories
+build/
+bin/
+obj/
+
+# Editor-specific files (e.g., Vim, Emacs, VS Code)
+.vscode/
+.idea/
+*.sublime-workspace
+*.DS_Store
+
+# Log files
+*.log
