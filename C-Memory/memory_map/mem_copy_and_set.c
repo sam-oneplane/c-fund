@@ -24,7 +24,7 @@ void mem_cpy_to_stack_and_heap() {
     printf("node1 info: (is_valid: %d, size: %d, next_ptr %p)\n", node1.is_valid, node1.size, node1.next);
 
     node_t *node_h ; 
-    if (node_h = malloc(sizeof(node_t)) != NULL ){
+    if ((node_h = malloc(sizeof(node_t))) != NULL ){
         /*Copy to heap*/
         memcpy(node_h, &node0, sizeof(node_t));
         printf("node on heap info: (is_valid: %d, size: %d, next_ptr %p)\n", node_h->is_valid, node_h->size, node_h->next);
@@ -38,8 +38,8 @@ void mem_cpy_to_buffer() {
     node_t node = {.is_valid = 1 , .size = 20, .next = NULL};
 
     char *buff;
-    if(buff = malloc(BUFF_SIZE*sizeof(char)) == NULL) {
-        fprintf(stderr, "malloc has failed! %p\n", *buff);
+    if((buff = malloc(BUFF_SIZE*sizeof(char))) == NULL) {
+        fprintf(stderr, "malloc has failed! %p\n", buff);
     }
 
     memset(buff, 0xCC, BUFF_SIZE);

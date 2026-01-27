@@ -12,13 +12,20 @@
 // move data from disk to ram using mmap 
 int main(int argc, char **argv) {
 
+    if (argc < 2) {
+        printf("Usage: %s <file_path>\n", argv[0]);
+        return 1; // Exit if no path is provided
+    }
+
+    // The file path is in argv[1]
+    char *file_path = argv[1];
     /* use program break to increment heap memory
     intptr_t inc = 4096;
     void *current_brk = sbrk(inc);
     printf("current break: %p\n", current_brk);
     USE mmap insted */
     
-    int fd = open("../test_files/librosa_vocal_analizer.py", O_RDWR, S_IRUSR | S_IWUSR);
+    int fd = open(file_path, O_RDWR, S_IRUSR | S_IWUSR);
     struct stat sb;
 
     if(fstat(fd, &sb) == -1) {
