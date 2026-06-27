@@ -7,7 +7,6 @@
 
 #define BUFF_SIZE 128
 
-
 typedef void * (* malloc_func)(size_t);
 typedef void (* free_func)(void *);
 

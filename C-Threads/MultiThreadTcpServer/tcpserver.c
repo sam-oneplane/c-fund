@@ -1,7 +1,11 @@
-// clang tcpserver.c common.c queue_t.c -o tcps -pthread -I. -Wall -std=c11
+// clang tcpserver.c common.c queue_t.c -o tcps -lpthread -I. -Wall -std=c11
 #define _GNU_SOURCE
 #include "common.h"
 #include "queue_t.h"
+#include <stdio.h>
+
+#ifndef __STDC_NO_THREADS__
+   
 #include <threads.h>
 
 
@@ -129,3 +133,4 @@ void *handle_conn(void *p_client_socket) {
     printf("closing server connection\n");
     return NULL;
 }
+#endif

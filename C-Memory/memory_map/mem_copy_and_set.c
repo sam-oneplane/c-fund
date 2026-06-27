@@ -30,7 +30,6 @@ void mem_cpy_to_stack_and_heap() {
         printf("node on heap info: (is_valid: %d, size: %d, next_ptr %p)\n", node_h->is_valid, node_h->size, node_h->next);
         free(node_h);
     } 
-
 }
 
 void mem_cpy_to_buffer() {
